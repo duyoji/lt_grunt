@@ -14,7 +14,21 @@ module.exports = function(grunt) {
                 dest: 'dist/app.js'
             }
         },
-        uglify: {},
+        uglify: {
+            options: {
+                // バナーは出力時に先頭に挿入されます
+                banner: '/*! created  <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                // 変数名を短くする
+                mangle: true,
+                // 冗長になっている書き方を短くまとめてくれるよう。
+                compress: true
+            },
+            dist: {
+                files: {
+                    'dist/app.min.js': ['dist/app.js']
+                }
+            }
+        },
         watch: {},
     });
 
@@ -24,5 +38,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-     grunt.registerTask('default', ['concat']);
+     grunt.registerTask('build', ['concat', 'uglify']);
+     grunt.registerTask('cc', ['concat']);
+     grunt.registerTask('ug', ['uglify']);
 };
