@@ -29,7 +29,10 @@ module.exports = function(grunt) {
                 }
             }
         },
-        watch: {},
+        watch: {
+            files: ['src/**/*.js', 'main.js'],
+            tasks: ['concat', 'uglify']
+        },
     });
 
     // Load the plugin
@@ -41,4 +44,6 @@ module.exports = function(grunt) {
      grunt.registerTask('build', ['concat', 'uglify']);
      grunt.registerTask('cc', ['concat']);
      grunt.registerTask('ug', ['uglify']);
+
+     grunt.registerTask('default', ['watch']);
 };
